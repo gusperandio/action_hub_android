@@ -25,5 +25,7 @@ class TaskViewModel @Inject constructor(
         loadTasks()
     }
 
+    fun getLastId() = repository.getAutoIncrement()
+
     fun getTaskDetails(id: Int): Task? = repository.getTaskById(id)
 }

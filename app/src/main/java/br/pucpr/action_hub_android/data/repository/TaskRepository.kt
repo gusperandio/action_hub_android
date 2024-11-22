@@ -6,4 +6,5 @@ interface TaskRepository {
     fun getTasks(): List<Task>
     fun addTask(task: Task)
     fun getTaskById(id: Int): Task?
+    fun getAutoIncrement(): Int
 }

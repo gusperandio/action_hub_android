@@ -11,5 +11,7 @@ class TaskRepositoryImpl @Inject constructor() : TaskRepository {
         tasks.add(task)
     }
 
+    override fun getAutoIncrement() = (tasks.lastOrNull()?.id ?: 0) + 1
+
     override fun getTaskById(id: Int): Task? = tasks.find { it.id == id }
 }
