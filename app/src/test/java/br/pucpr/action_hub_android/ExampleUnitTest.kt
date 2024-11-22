@@ -13,29 +13,29 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.runner.RunWith
 import javax.inject.Inject
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
+import kotlin.random.Random
 
 class ExampleUnitTest {
     private lateinit var taskRepository: TaskRepository
 
     @Before
     fun setup() {
-        // Manual instance for a unit test
         taskRepository = TaskRepositoryImpl()
     }
 
     @Test
     fun testAddAndGetTask() {
-        val task = Task(id = 1, title = "Test Task", description = "Test Description")
-        taskRepository.addTask(task)
+        for (i in 1..20) {
+            val task = Task(id = i, title = "Task-$i", description = "Desc-$i")
+            taskRepository.addTask(task)
+        }
+        val myRandom = Random.nextInt(1, 21)
+        val findTask = taskRepository.getTaskById(myRandom)
 
-        val retrievedTask = taskRepository.getTaskById(1)
-        assertNotNull(retrievedTask)
-        assertEquals("Test Task", retrievedTask?.title)
+        assertNotNull(findTask)
+        assertEquals(myRandom, findTask?.id)
+        assertEquals("Task-$myRandom", findTask?.title)
+        assertEquals("Desc-$myRandom", findTask?.description)
     }
+
 }
